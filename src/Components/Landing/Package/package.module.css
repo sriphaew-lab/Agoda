@@ -1,0 +1,50 @@
+.Dest_Cont {
+  height: 580px;
+}
+
+.rentalTypes {
+  width: 95%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.rentalTypes:hover {
+  box-shadow: 4px 4px 10px gray, -4px -4px 10px lightgray;
+  padding: 0;
+  transition: 300ms;
+}
+.rentalImg {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+}
+.rentalImg + p {
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 5px 10px;
+  color: #555;
+  cursor: pointer;
+}
+.flex_style {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 50px;
+}
+.treatment_name {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  padding: 5px 10px;
+  color: #555;
+}
+.treatment_price {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  padding: 5px 10px;
+  color: rgb(225, 45, 45);
+  justify-content: right;
+}

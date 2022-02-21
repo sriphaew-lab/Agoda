@@ -1,0 +1,150 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext } from "react";
+import styles from "./navbar.module.css";
+import ApartmentIcon from "@material-ui/icons/Apartment";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { Avatar, Box, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import IsAuth from "../../../context/Auth";
+
+const useStyles = makeStyles({
+  pri: {
+    margin: "12px",
+    textTransform: "capitalize",
+    fontSize: "14px",
+    padding: "10px 20px",
+    borderRadius: "6px",
+    "&:hover": {
+      backgroundColor: "#87B3FB",
+      color: "#fff",
+      border: "1px solid #87B3FB",
+    },
+  },
+  sec: {
+    margin: "12px",
+    textTransform: "capitalize",
+    fontSize: "14px",
+    padding: "10px 20px",
+    borderRadius: "6px",
+    "&:hover": {
+      backgroundColor: "#FF567D",
+      color: "#fff",
+      border: "1px solid #FF567D",
+    },
+  },
+  box: {
+    backgroundColor: "#eee",
+    textAlign: "center",
+    padding: "10px",
+    zIndex: "-1",
+    fontSize: "17px",
+    fontWeight: 600,
+  },
+});
+
+export const Navbar = () => {
+  const classes = useStyles();
+  // const [auth, setAuth] = useState(false);
+  const auth = useContext(IsAuth);
+  console.log(auth);
+
+  let userDetails = localStorage.getItem("user");
+  if (userDetails == null) userDetails = {};
+  else userDetails = JSON.parse(localStorage.getItem("user"));
+  return (
+    <>
+      <div className={styles.navbar}>
+        <div className={styles.navbar_left}>
+          <Link to="/">
+            <img
+              className={styles.header_logo}
+              // src="https://cdn6.agoda.net/images/kite-js/logo/agoda/color-default.svg"
+              src="./images/misc/medixtourism-logo2.svg"
+              alt=""
+            />
+          </Link>         
+          <div>
+            <p>DESTINATION</p>
+          </div>
+          <div>
+            <p>TREATMENT</p>
+          </div>
+          <div>
+            <p>PROVIDER</p>
+          </div>
+          <div>
+            <ApartmentIcon />
+            <p>DOCTOR</p>
+          </div>
+          <div className={styles.dropMenu}>
+            <MoreHorizIcon className={styles.moreIcon} />
+            <div className={styles.dropdown}>
+              <a href="#">Accommodation</a>
+              <a href="#">AirportTransfers</a>
+              <a href="#">CarRentals</a>
+              <a href="#">Things to do</a>
+            </div>
+          </div>
+        </div>
+        <div>
+            <img
+              src="./images/misc/GHA-mark.webp"
+              alt=""
+            />
+        </div>
+        <div>
+            <img height="40px"
+              src="./images/misc/@TRUST-mark.png"
+              alt=""
+            />
+        </div> 
+        <div className={styles.navbar_right}>
+          <Button className={classes.sec} variant="outlined" color="secondary">
+            Become a Provider
+          </Button>
+          {auth.isAuth ? (
+            <>
+              <Avatar alt="SAJ" src={auth.isAuth ? userDetails.imageUrl : ""} />
+              <p>{auth.isAuth ? userDetails.givenName : ""}</p>
+              <Button
+                // onClick={() => setAuth(!auth)}
+                onClick={() => auth.toggle(!auth.isAuth)}
+                className={classes.pri}
+                variant="outlined"
+                color="primary"
+              >
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button
+                  // onClick={() => setAuth(!auth)}
+                  className={classes.pri}
+                  color="primary"
+                >
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button
+                  className={classes.pri}
+                  variant="outlined"
+                  color="primary"
+                >
+                  Create account
+                </Button>
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+      <Box className={classes.box}>
+        We know your travel plans may be impacted by COVID-19. Check local
+        travel restrictions prior to booking your trip.
+      </Box>
+    </>
+  );
+};
